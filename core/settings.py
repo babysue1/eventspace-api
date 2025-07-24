@@ -20,10 +20,8 @@ SECRET_KEY = 'django-insecure-tjdd#uw90ekj@!(6aty&e3ref)3vfzs!s1dpjx7b2wf(3dhbnx
 
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['eventspace-api-production.up.railway.app', 'https://eventspace-api-production.up.railway.app', 'localhost', '127.0.0.0.1', ]
-CSRF_TRUSTED_ORIGINS = ['https://eventspace-api-production.up.railway.app']
-
-
+ALLOWED_HOSTS = ['eventspace-api-production.up.railway.app', 'https://eventspace-api-production.up.railway.app', 'localhost', '127.0.0.1', '10.0.6.34' ]
+CSRF_TRUSTED_ORIGINS = ['https://eventspace-api-production.up.railway.app', 'http://localhost:8000', 'http://10.0.6.34', 'http://127.0.0.1']
 
 INSTALLED_APPS = [
     'jazzmin',
@@ -38,6 +36,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'whitenoise.runserver_nostatic',
     'django_celery_beat',
+    'corsheaders',  # Add this line
 
     'apps.authentication',
     'apps.bookings',
@@ -48,6 +47,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    'corsheaders.middleware.CorsMiddleware',  # Add this line
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -230,3 +230,13 @@ JAZZMIN_UI_TWEAKS = {
         "success": "btn-success"
     }
 }
+
+CORS_ALLOW_ALL_ORIGINS = True  # Only for development
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://10.0.6.34:5173",
+]
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^http://\w+\.localhost:5173$",
+]
