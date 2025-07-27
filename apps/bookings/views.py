@@ -204,19 +204,18 @@ class ListMyEventsView(ListAPIView):
 
     def get_queryset(self):
         """
-        Filter events to show only confirmed events created by the current user
+        Filter events to show all events created by the current user regardless of status
         """
         return Event.objects.filter(
-            user=self.request.user,  # Current user's events
-            status='confirmed'  # Only confirmed events
+            user=self.request.user  # Current user's events - no status filter
         ).select_related('space').order_by('start_datetime')
 
     @swagger_auto_schema(
-        operation_summary='List my confirmed events',
-        operation_description='Get a list of confirmed events created by the current user',
+        operation_summary='List all my events',
+        operation_description='Get a list of all events created by the current user regardless of status',
         responses={
             200: openapi.Response(
-                description='User confirmed events retrieved successfully',
+                description='User events retrieved successfully',
                 schema=EventListSerializer(many=True)
             )
         }
