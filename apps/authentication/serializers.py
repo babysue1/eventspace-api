@@ -154,4 +154,11 @@ class LogoutUsererializer(serializers.Serializer):
             token = RefreshToken(self.token)
             token.blacklist()
         except TokenError:
-            return self.fail('bad_token')                          
+            return self.fail('bad_token')
+
+class UserSerializer(serializers.ModelSerializer):
+    """Serializer for user objects"""
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'username', 'first_name', 'last_name']
+        read_only_fields = ['id']
