@@ -9,5 +9,5 @@ apps\authentication\migrations
 **/migrations/*
 !**/migrations/__init__.py
 
-# Ignore images in spaces folder
-spaces/images/media/
+# Ignore media folder and all its contents
+media/
