@@ -8,3 +8,6 @@ apps\authentication\migrations
 
 **/migrations/*
 !**/migrations/__init__.py
+
+# Ignore media folder and all its contents
+media/
